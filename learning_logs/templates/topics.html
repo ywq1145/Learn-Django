@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="page-header">
+                <h1>Topics</h1>
+            </div>
+
+            {% if topics %}
+            <ul class="list-group">
+                {% for topic in topics %}
+                <li class="list-group-item">
+                    <a href="{% url 'topic' topic.id %}" class="list-group-item-heading">{{ topic }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <div class="alert alert-info" role="alert">
+                No topics have been added yet.
+            </div>
+            {% endif %}
+
+            <a href="{% url 'new_topic' %}" class="btn btn-primary">Add New Topic</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

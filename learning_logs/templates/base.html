@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>笔记</title>
+    <!-- Bootstrap CSS via CDN -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .default-theme {
+            background-color: white;
+            color: black;
+        }
+
+        .dark-theme {
+            background-color: black;
+            color: #666; /* 使用灰色字体以便在黑色背景下可读 */
+        }
+
+        .theme-toggle-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .theme-toggle-btn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+
+<body id="body" class="default-theme">
+
+    <!-- Background Theme Toggle Button -->
+    <button class="theme-toggle-btn" onclick="toggleTheme()">关灯</button>
+
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'index' %}">Learning Log</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'topics' %}">Topics</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                    <li><a>Hello, {{ user.username }}.</a></li>
+                    <li><a href="{% url 'logout' %}">log out</a></li>
+                    {% else %}
+                    <li><a href="{% url 'register' %}">register</a></li>
+                    <li><a href="{% url 'login' %}">log in</a></li>
+                    {% endif %}
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            {% block header %}{% endblock header %}
+        </div>
+        <div>
+            {% block content %}{% endblock content %}
+        </div>
+    </div><!-- /container -->
+
+    <!-- Bootstrap JavaScript via CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script>
+        function toggleTheme() {
+            var body = document.getElementById("body");
+            if (body.classList.contains("dark-theme")) {
+                body.classList.remove("dark-theme");
+                body.classList.add("default-theme");
+                localStorage.setItem("theme", "default-theme");
+            } else {
+                body.classList.remove("default-theme");
+                body.classList.add("dark-theme");
+                localStorage.setItem("theme", "dark-theme");
+            }
+        }
+
+        // Set theme on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            var body = document.getElementById("body");
+            var currentTheme = localStorage.getItem("theme");
+
+            if (currentTheme) {
+                body.classList.remove("default-theme", "dark-theme");
+                body.classList.add(currentTheme);
+            }
+        });
+    </script>
+</body>
+</html>

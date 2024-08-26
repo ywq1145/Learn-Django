@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="jumbotron text-center" style="background-color: #f8f9fa; padding: 40px;">
+        <h1>Welcome to Learning Log</h1>
+        <p class="lead">Your personal space to track and reflect on your learning journey.</p>
+        <hr class="my-4">
+        <p>Whether you're studying for an exam, learning a new skill, or simply exploring new topics, Learning Log helps you organize your thoughts, track your progress, and stay motivated.</p>
+        <p><a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Get Started</a></p>
+    </div>
+{% endblock content %}

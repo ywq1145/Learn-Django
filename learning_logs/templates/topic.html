@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="page-header">
+                <h1>Topic: {{ topic }}</h1>
+            </div>
+
+            <a href="{% url 'new_entry' topic.id %}" class="btn btn-primary">Add New Entry</a>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Entries</h3>
+                </div>
+                <div class="panel-body">
+                    {% if entries %}
+                    <ul class="list-unstyled">
+                        {% for entry in entries %}
+                        <li class="entry-item">
+                            <div class="entry-header">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h4>{{ entry.date_added|date:'M d, Y H:i' }}</h4>
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <a href="{% url 'edit_entry' entry.id %}" class="btn btn-warning btn-sm">Edit Entry</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="entry-body">
+                                <p>{{ entry.text|linebreaks }}</p>
+                            </div>
+                            <hr>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <div class="alert alert-info" role="alert">
+                        No entries for this topic yet.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
