@@ -1,12 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <p><a href="{% url 'topic' topic.id %}">{{ topic }}</a></p>
-    <p>Edit entry:</p>
-    <form action="{%url 'edit_entry' entry.id %}" method="post">
-    {% csrf_token %}
-        {{ form.as_p }}
-        <button name="submit">save changes</button>
-    </form>
-    <p><a href="{% url 'topic' topic.id %}">Back to entries</a></p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <!-- Edit Form -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">编辑条目</h3>
+                </div>
+                <div class="panel-body">
+                    <form action="{% url 'edit_entry' entry.id %}" method="post">
+                        {% csrf_token %}
+
+                        <!-- Title Field -->
+                        <div class="form-group">
+                            <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+                            {{ form.title|safe }}
+                        </div>
+
+                        <!-- Text Field -->
+                        <div class="form-group">
+                            <label for="{{ form.text.id_for_label }}">{{ form.text.label }}</label>
+                            {{ form.text|safe }}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">保存更改</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Back to List Link -->
+            <div class="text-center mt-3">
+                <a href="{% url 'topic' topic.id %}" class="btn btn-default">回到列表</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}

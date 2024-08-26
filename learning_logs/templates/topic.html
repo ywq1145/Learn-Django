@@ -5,39 +5,32 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="page-header">
-                <h1>Topic: {{ topic }}</h1>
+                <h1 style="font-weight: 600;">主题: {{ topic }}</h1>
             </div>
 
-            <a href="{% url 'new_entry' topic.id %}" class="btn btn-primary">Add New Entry</a>
+            <a href="{% url 'new_entry' topic.id %}" class="btn btn-primary" style="background-color: #007aff; border: none; border-radius: 10px; font-weight: 500;">添加新条目</a>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Entries</h3>
+            <div class="panel panel-default" style="border-radius: 15px; border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                <div class="panel-heading" style="background-color: #f7f7f7; border-radius: 15px 15px 0 0;">
+                    <h3 class="panel-title" style="font-weight: 600;">条目列表</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="padding: 20px;">
                     {% if entries %}
                     <ul class="list-unstyled">
                         {% for entry in entries %}
-                        <li class="entry-item">
-                            <div class="entry-header">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h4>{{ entry.date_added|date:'M d, Y H:i' }}</h4>
-                                    </div>
-                                    <div class="col-md-4 text-right">
-                                        <a href="{% url 'edit_entry' entry.id %}" class="btn btn-warning btn-sm">Edit Entry</a>
-                                    </div>
-                                </div>
+                        <li class="entry-item" style="margin-bottom: 20px;">
+                            <div class="entry-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+                                <h4 style="font-weight: 500; margin: 0;">{{ entry.date_added|date:'M d, Y H:i' }}</h4>
+                                <a href="{% url 'edit_entry' entry.id %}" class="btn btn-warning btn-sm" style="background-color: #ff9500; border: none; border-radius: 10px; font-weight: 500;">编辑</a>
                             </div>
-                            <div class="entry-body">
-                                <p>{{ entry.text|linebreaks }}</p>
+                            <div class="entry-body" style="background-color: #f7f7f7; border-radius: 10px; padding: 15px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);">
+                                <p style="font-size: 16px; line-height: 1.6; margin: 0;">{{ entry.text|linebreaks }}</p>
                             </div>
-                            <hr>
                         </li>
                         {% endfor %}
                     </ul>
                     {% else %}
-                    <div class="alert alert-info" role="alert">
+                    <div class="alert alert-info" role="alert" style="border-radius: 10px;">
                         No entries for this topic yet.
                     </div>
                     {% endif %}
